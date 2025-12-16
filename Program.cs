@@ -11,7 +11,7 @@ using pr10.Models.Response;
 
 namespace pr10
 {
-    internal class Program
+    class Program
     {
         static string ClientId = "019b267d-0b72-72ce-8d6a-efd54474216c";
 
@@ -53,11 +53,25 @@ namespace pr10
 
             return ReturnToken;
         }
-        static async void Main(string[] args)
+        static async Task Main(string[] args)
         {
             string Token = await GetToken(ClientId, AuthorizationKey);
+
+            if (Token == null)
+            {
+                Console.WriteLine("Не удалось получить токен");
+                return;
+            }
+            while (true) {
+                Console.Write("Сообщение: ");
+
+                string Message = Console.ReadLine();
+
+                ResponseMessage Answer = await GetAnswer(Token, Message);
+                Console.WriteLine("Ответ: " + Answer.choices[0].message.content);
+            }
         }
-        public static async Task<ResponseMessage> GetAnswer(string token, string message)
+        public static async Task<ResponseMessage> GetAnswer(string token, string user_message)
         {
             ResponseMessage responseMessage = null;
             string Url = "https://gigachat.devices.sberbank.ru/api/v1/chat/completions";
@@ -80,7 +94,7 @@ namespace pr10
                             {
 
                                 role="user",
-                                content=message
+                                content = user_message
                             }
                         }
                     };
