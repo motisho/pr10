@@ -319,7 +319,7 @@ namespace pr10
                                 Console.WriteLine(body);
                                 return null;
                             }
-
+                             
                             var bytes = await fileResp.Content.ReadAsByteArrayAsync();
                             string outPath = Path.Combine(Environment.CurrentDirectory, $"gigachat_{fileId}.jpg");
                             File.WriteAllBytes(outPath, bytes);
