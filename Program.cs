@@ -21,9 +21,7 @@ namespace pr10
 
         static async Task Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Для создания изображений, перед запросом введите /img Ваш запрос \n" +
-                "Для текстового запроса, введите просто ваш запрос,без /img");
+            Console.WriteLine("Для запроса генерации картинки используйте /img... \n");
             string Token = await GetToken(ClientId, AuthorizationKey);
             if (Token == null)
             {
@@ -131,7 +129,7 @@ namespace pr10
                             File.WriteAllBytes(outPath, bytes);
                             Console.WriteLine($"Первое изображение сохранено: {outPath}");
 
-                            Console.Write("Установить это изображение как обои? (д/н): ");
+                            Console.Write("Установить это изображение как обои? (да/нет): ");
                             string ans = Console.ReadLine()?.Trim().ToLower();
                             if (ans == "д" || ans == "да" || ans == "y")
                             {
